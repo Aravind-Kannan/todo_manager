@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   ## params[:id] - Hash containing (here, Path) Params of exposed endpoint
   #get "todos/:id", to: "todos#show"
 
+  post "users/login", to: "users#login"
+
   resources :todos
   resources :users
 end
