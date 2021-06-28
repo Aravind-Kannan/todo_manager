@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   def login
     email = params[:email]
     password = params[:password]
-    response_text = User.where("email = ? and password = ?", email, password).first != nil
+    response_text = User.where("email = ? and password = ?", email, password).first.present?
     render plain: response_text
   end
 end
