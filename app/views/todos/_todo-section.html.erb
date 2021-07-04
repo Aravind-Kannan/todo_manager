@@ -1,29 +1,37 @@
 <section class="TodoSection">
   <div class="TodoSectionTitle">
     <p class="TodoSectionTitle-text"><%= section_title %></p>
-    <p class="TodoSectionTitle-remainingCount"><%= todos.completed.count %>/<%= todos.count %></p>
+    <p class="TodoSectionTitle-remainingCount">
+      <% if section_title == "Overdue" %>
+        0/<%= todos.count - todos.completed.count %>
+      <% else %>
+        <%= todos.completed.count %>/<%= todos.count %>
+      <% end %>
+    </p>
   </div>
   <ul>
     <% todos.each do |todo| %>
-      <li class="TodoItem">
-        <div class="TodoItem-container">
-          <% if todo.completed %>
-            <input class="TodoItem-checkbox" type="checkbox" checked/>
-            <p style="text-decoration: line-through;"><%= todo.todo_text %></p>
-          <% else %>
-            <input class="TodoItem-checkbox" type="checkbox" />
-            <p><%= todo.todo_text %></p>
-          <% end %>
-          <p class="TodoItem-dateLabel">
-          <% if show_due_date %>
-            <%= todo.due_date.to_s(:short) %>
-          <% end %>
-          </p>
-          <a class="TodoItem-delete">
-            <img src="TrashCan.svg" />
-          </a>
-        </div>
-      </li>
+      <% if !todo.completed or section_title != "Overdue" %>
+        <li class="TodoItem">
+          <div class="TodoItem-container">
+            <% if todo.completed %>
+              <input class="TodoItem-checkbox" type="checkbox" checked/>
+              <p style="text-decoration: line-through;"><%= todo.todo_text %></p>
+            <% else %>
+              <input class="TodoItem-checkbox" type="checkbox" />
+              <p><%= todo.todo_text %></p>
+            <% end %>
+            <p class="TodoItem-dateLabel">
+            <% if show_due_date %>
+              <%= todo.due_date.to_s(:short) %>
+            <% end %>
+            </p>
+            <a class="TodoItem-delete">
+              <img src="TrashCan.svg" />
+            </a>
+          </div>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </section>
