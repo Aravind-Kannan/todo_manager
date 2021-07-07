@@ -13,13 +13,14 @@
     <% todos.each do |todo| %>
       <li class="TodoItem">
         <div class="TodoItem-container">
-          <% if todo.completed %>
-            <input class="TodoItem-checkbox" type="checkbox" checked/>
-            <p style="text-decoration: line-through;"><%= todo.todo_text %></p>
-          <% else %>
-            <input class="TodoItem-checkbox" type="checkbox" />
-            <p><%= todo.todo_text %></p>
+          <%= form_with(url: "/todos/#{todo.id}", method: "put") do %>
+            <input class="TodoItem-checkbox"
+                  name="completed"
+                  type="checkbox"
+                  onclick="this.form.submit()"
+                  <%= todo.completed ? "checked" : "" %>/>
           <% end %>
+          <p style='<%= todo.completed ? "text-decoration: line-through;" : "" %>'><%= todo.todo_text %></p>
           <p class="TodoItem-dateLabel">
           <% if show_due_date %>
             <%= todo.due_date.to_s(:short) %>
