@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
-  skip_before_action :verify_authenticity_token
+
+  def new
+    render "users/new"
+  end
 
   def index
     render plain: User.all.map { |user| user.to_pleasant_string }.join("\n")
@@ -10,16 +13,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    name = params[:name]
-    password = params[:password]
-    email = params[:email]
     new_user = User.create!(
-      name: name,
-      email: email,
-      password: password,
+      first_name: params[:first_name],
+      last_name: params[:last_name],
+      email: params[:email],
+      # password_digest: digest(params[:password]),
     )
-    response_text = "Hey! Your user ID is #{new_user.id}"
-    render plain: response_text
+    redirect_to "/"
   end
 
   def login

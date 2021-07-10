@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   post "users/login", to: "users#login"
 
+  get "/" => "home#index"
+
   resources :todos
   resources :users
 end
