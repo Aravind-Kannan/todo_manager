@@ -6,8 +6,8 @@ class Todo < ActiveRecord::Base
     "#{id}. #{due_date.to_s(:long)} #{todo_text} #{is_completed}"
   end
 
-  def due_today?
-    due_date == Date.today
+  def of_user(user)
+    where(user_id: user.id)
   end
 
   def self.overdue
