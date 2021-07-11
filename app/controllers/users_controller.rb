@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def new
     render "users/new"
   end
@@ -13,11 +12,12 @@ class UsersController < ApplicationController
   end
 
   def create
+    puts params[:password]
     new_user = User.create!(
       first_name: params[:first_name],
       last_name: params[:last_name],
       email: params[:email],
-      password_digest: params[:password],
+      password: params[:password],
     )
     redirect_to "/"
   end
