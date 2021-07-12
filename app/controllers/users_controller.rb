@@ -24,9 +24,9 @@ class UsersController < ApplicationController
       flash[:error] = user.errors.full_messages.join(", ")
       redirect_to new_user_path
     else
+      session[:current_user_id] = user.id
       redirect_to "/"
     end
-    # session[:current_user_id] = user.id
   end
 
   def login
