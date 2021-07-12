@@ -1,4 +1,7 @@
 class Todo < ActiveRecord::Base
+  validates :todo_text, presence: true
+  validates :todo_text, length: { minimum: 2 }
+  validates :due_date, presence: true
   belongs_to :user
 
   def to_pleasant_string
@@ -6,7 +9,7 @@ class Todo < ActiveRecord::Base
     "#{id}. #{due_date.to_s(:long)} #{todo_text} #{is_completed}"
   end
 
-  def of_user(user)
+  def self.of_user(user)
     where(user_id: user.id)
   end
 
